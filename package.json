@@ -1,0 +1,17 @@
+{
+  "name": "advent-of-code-2019",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "day1": "node ./day1.js",
+    "day2": "node ./day2.js",
+    "test": "ava"
+  },
+  "devDependencies": {
+    "ava": "^2.4.0",
+    "nyc": "^14.1.1",
+    "sinon": "^7.5.0"
+  }
+}
