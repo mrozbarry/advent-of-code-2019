@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+<style>
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+}
+body * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+</style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script src="./scratchpad.js"></script>
+    <script>
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+
+      const renderOptions = {
+        scale: 0.5,
+        translate: {
+          x: 0,
+          y: 0,
+        },
+      };
+
+      let first = true;
+
+      const updateCanvas = () =>{
+        if (!window.scratchUpdate) return;
+
+        const { clientWidth: width, clientHeight: height } = document.body;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        if (first) {
+          renderOptions.translate.x = width / 2;
+          renderOptions.translate.y = height / 2;
+          first = false;
+        }
+
+        context.save();
+
+        context.clearRect(0, 0, width, height);
+
+        context.translate(renderOptions.translate.x, renderOptions.translate.y);
+        context.scale(renderOptions.scale, renderOptions.scale);
+
+        window.scratchUpdate(context);
+
+        context.restore();
+      };
+
+      let resizeHandle = null;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeHandle);
+        resizeHandle = setTimeout(updateCanvas, 250);
+      });
+
+      window.addEventListener('keydown', (e) => {
+        switch (e.code) {
+          case 'ArrowUp':
+            renderOptions.translate.y += 5;
+            updateCanvas();
+            return;
+
+          case 'ArrowDown':
+            renderOptions.translate.y -= 5;
+            updateCanvas();
+            return;
+
+          case 'ArrowLeft':
+            renderOptions.translate.x += 5;
+            updateCanvas();
+            return;
+
+          case 'ArrowRight':
+            renderOptions.translate.x -= 5;
+            updateCanvas();
+            return;
+
+          case 'Minus':
+            renderOptions.scale -= 0.01;
+            updateCanvas();
+            return;
+
+          case 'Equal':
+            renderOptions.scale += 0.01;
+            updateCanvas();
+            return;
+        }
+      });
+
+      updateCanvas();
+
+      window.scratchTouch = () => updateCanvas();
+    </script>
+  </body>
+</html>
