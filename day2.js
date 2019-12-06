@@ -3,10 +3,10 @@ const intcode = require('./lib/intcode');
 
 const firstProgram = path.resolve(__dirname, 'input.program');
 
-const run = (opcodes, noun, verb) => {
+const run = async (opcodes, noun, verb) => {
   opcodes[1] = noun;
   opcodes[2] = verb;
-  const memory = intcode.run(opcodes);
+  const memory = await intcode.run(opcodes);
   return memory[0];
 }
 
