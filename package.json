@@ -5,6 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "intcode": "parcel apps/intcode/index.html",
     "n": "babel-node",
     "scratchpad": "parcel scratchpad.html",
     "test": "ava"
@@ -14,10 +15,12 @@
     "ava": "^2.4.0",
     "nyc": "^14.1.1",
     "parcel-bundler": "^1.12.4",
+    "sass": "^1.23.7",
     "sinon": "^7.5.0",
     "typescript": "^3.7.3"
   },
   "dependencies": {
-    "colorette": "^1.1.0"
+    "colorette": "^1.1.0",
+    "hyperapp": "^2.0.3"
   }
 }
