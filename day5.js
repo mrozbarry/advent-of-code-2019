@@ -1,34 +1,20 @@
 const readline = require('readline');
 const path = require('path');
 
-const intcode = require('./lib/intcode');
+const intcode = require('./lib/intcode2');
 
 const firstProgram = path.resolve(__dirname, 'day5.program');
 
-const adapter = {
-  input: () => new Promise((resolve) => {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-
-    const ask = () => {
-      rl.question('Integer?', (data) => {
-        const integer = Number(data[0]);
-        if (Number.isNaN(integer)) {
-          return ask();
-        }
-        rl.close();
-        resolve(integer);
-      });
-    };
-
-    ask();
-  }),
-  output: v => {
-    console.log(v);
-  },
+const makeAdapter = (inputs = [], prefix) => {
+  const iter = inputs[Symbol.iterator]();
+  return {
+    input: iter,
+    output: (v) => console.log(prefix, 'Output:', v),
+  }
 };
 
 intcode.loadFromFile(firstProgram)
-  .then(opcodes => intcode.run(opcodes, adapter));
+  .then(async (code) => {
+    await intcode.run(code, makeAdapter([1], '[part1]'))
+    await intcode.run(code, makeAdapter([5], '[part2]'))
+  });
