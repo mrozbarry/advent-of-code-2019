@@ -11,8 +11,12 @@
     "test": "ava"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.5",
     "@babel/node": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.6",
     "ava": "^2.4.0",
+    "babel-preset-env": "^1.7.0",
     "nyc": "^14.1.1",
     "parcel-bundler": "^1.12.4",
     "sass": "^1.23.7",
@@ -20,6 +24,9 @@
     "typescript": "^3.7.3"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.7.0",
+    "@babel/runtime": "^7.7.6",
+    "@babel/runtime-corejs2": "^7.7.6",
     "colorette": "^1.1.0",
     "hyperapp": "^2.0.3"
   }
